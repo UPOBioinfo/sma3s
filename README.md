@@ -1,4 +1,5 @@
-# Sma3s (Sequence massive annotator using 3 modules) - Annotate complete proteomes &amp; transcriptomes
+# Sma3s (Sequence massive annotator using 3 modules)
+*Annotate complete proteomes &amp; transcriptomes*
 
 Sma3s has low computing requirements and can be used on virtually any computer. It is written in Perl language and you need its interpreter (http://www.perl.com), which is preinstalled in Linux and Mac OS X (in Windows it will not be necessary). Additionally, you need to install the Blast+ package for your operating system.
 
@@ -8,10 +9,12 @@ To annotate your sequence dataset, you only need the following files:
 
 ## Linux
 Usual command line for annotating proteomes:
+
 *./sma3s_v2.pl -i query_dataset.fasta -d uniref90.fasta -goslim*
 
 Usual command line for annotating transcriptomes:
- *./sma3s_v2.pl -i query_dataset.fasta -d uniref90.fasta -nucl -goslim*
+
+*./sma3s_v2.pl -i query_dataset.fasta -d uniref90.fasta -nucl -goslim*
 
 Run "sma3s_v2.pl --help" for help with these and other advanced parameters.
 
