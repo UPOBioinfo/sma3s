@@ -27,7 +27,12 @@ Open Terminal from Applications/Utilities.
 
 
 ## Customized databases
-Alternatively, you can use Sma3s with the whole UniProt database, if you are interested in a more sensitive, though more slowly, annotation. To do that, you must download a .dat file from UniProt (ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/), and install the Blast Legacy package (ftp://ftp.ncbi.nlm.nih.gov/blast/executables/legacy/).
+Alternatively, you can use Sma3s with the whole UniProt database, if you are interested in a more sensitive, though more slowly, annotation. 
+To do that, you must download a .dat file from UniProt:
+- ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/)
+
+And install the Blast Legacy package:
+- ftp://ftp.ncbi.nlm.nih.gov/blast/executables/legacy/
 
 ## Sma3s Website (including a video-tutorial)
 http://www.bioinfocabd.upo.es/sma3s/
