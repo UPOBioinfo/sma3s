@@ -1,5 +1,5 @@
 # Sma3s (Sequence massive annotator using 3 modules)
-*Functional annotation for complete proteomes &amp; transcriptomes*
+*Functional annotation for complete proteomes &amp; transcriptomes: http://www.bioinfocabd.upo.es/sma3s/*
 
 Sma3s has low computing requirements and can be used on virtually any computer. It is written in Perl language and you need its interpreter (http://www.perl.com), which is preinstalled in Linux and Mac OS X (in Windows it will not be necessary). Additionally, you need to install the Blast+ package for your operating system.
 
