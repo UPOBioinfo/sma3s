@@ -1,5 +1,5 @@
 # User folder
-setwd("/home/ajperez/Nextcloud/R/topGO")
+setwd("/home/ajperez/R/topGO")
 
 # Mandatory library
 library(topGO)
