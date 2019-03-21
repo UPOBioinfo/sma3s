@@ -66,7 +66,7 @@ title("p-value", cex.main = 0.8)
 linux_rm <- paste("rm",file_temp)
 system(linux_rm)
 
-#List of genes in GOs
+#List of genes by enriched GO
 GOnames <- as.vector(allRes$GO.ID)
 allGenes <- genesInTerm(GOdata, GOnames)
 significantGenes <- list() 
