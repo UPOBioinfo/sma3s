@@ -63,3 +63,19 @@ title("p-value", cex.main = 0.8)
 # Remove temp file
 system(linux_rm)
 
+#List of genes in GOs
+GOnames <- as.vector(allRes$GO.ID)
+allGenes <- genesInTerm(GOdata, GOnames)
+significantGenes <- list() 
+for(x in 1:Nodes){
+  significantGenes[[x]] <- allGenes[[x]][allGenes[[x]] %in% as.vector(genes)]
+}
+names(significantGenes) <- allRes$Term
+significantGenes
+new_folder <- (paste("groups_", file_genes, "/", sep = ""))
+dir.create(new_folder)
+for(x in 1:Nodes){
+  write.table(significantGenes[x], quote = FALSE, sep = "\t", 
+              file = paste(new_folder, x, "-", names(significantGenes)[x], ".tsv", sep=""),
+              col.names = F)
+}
