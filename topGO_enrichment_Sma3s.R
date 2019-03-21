@@ -8,11 +8,13 @@ library(topGO)
 file_genes <- "pratense.id"
 file_background <- "transcriptoma_phleum_pratense_UniSprPla_a123_r20_t0.1.tsv"
 Nodes <- 40 # number of processes to show
+Ontology <- "GO.P.ID" #PFC (BP MF CC)
 
+# Create temp file
+data <- read.csv(file_background, sep = "\t", header = TRUE, row.names = NULL)[,(c('X.ID', Ontology))]
+data$GO.P.ID <- as.character(gsub(';', ', ', data$GO.P.ID))
 file_temp <- paste0(file_background,"2")
-linux <- paste("grep -v '#'", file_background, "| cut -f1,5 | sed 's/;/, /g' >", file_temp)
-linux_rm <- paste("rm",file_temp)
-system(linux) # create temp file
+write.table(data, file = file_temp, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 
 # Get gene IDs for the enrichment
 genes <- read.csv(file_genes, header=F)$V1
@@ -61,6 +63,7 @@ axis(4, at=seq(1, max_value, length=6), labels=c(1, pv_label[2:6]), cex.axis=0.8
 title("p-value", cex.main = 0.8)
 
 # Remove temp file
+linux_rm <- paste("rm",file_temp)
 system(linux_rm)
 
 #List of genes in GOs
