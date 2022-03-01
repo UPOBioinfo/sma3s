@@ -1,26 +1,24 @@
+# Functional enrichments from: id_file and Sma3s annotation
+# change lines in block INPUT (###HERE)
+# UPOBioinfo, 2019
 library(topGO)
+library(ggplot2)
 library(RColorBrewer)
-library(tidyverse)
 
-ab <- "sa"
-setwd(paste0("/home/ajperez/Nextcloud/ncbidatasets/", ab))
+# INPUT (###HERE)
+setwd("/home/alumno/Descargas")                    # working directory
+file_genes <- "core_proteins.id"                   # file with identifiers
+file_background <- "pangenome_uniprot_BsEc_go.tsv" # Annotation file from Sma3s
+Nodes <- 15                                        # number of annotations to show
 
-# Files
+# Result folder
 FOLDER <- "enrichment"
-file_genes <- "freq"
-#file_genes <- "percent_nocrispr_crispr_02_07.id" #spacers|repeats|flanks
-#file_genes <- "spacers_sinthie.id" #spacers|repeats|flanks
-### grep -E "ab00001_04005|ab00004_00550" pangenome_annot.tsv OXA-23
-file_background <- paste0("roary/", ab, "2/pangenome_references_", ab , "_uniprot_bacteria_go.tsv")
-Nodes <- 10 # number of processes to show
-
 if (!dir.exists(FOLDER)){
   dir.create(FOLDER)
 }
 
 # Iterate through the two ontologies
-#for (ONT in c("BP", "CC", "MF")) {
-for (ONT in c("BP")) {
+for (ONT in c("BP", "CC", "MF")) {
   letter <- substr(ONT, 2, 2)
   Ontology <- paste0("GO.", letter, ".ID") #PFC (BP MF CC)
     
@@ -62,34 +60,34 @@ for (ONT in c("BP")) {
   allRes$classicFisher <- pvalue
   max_value <- as.integer(max(-log(pvalue)))+1
   pv_range <- exp(-seq(max_value, 0, -1))
-  allRes <- mutate(allRes, plot_id = paste(GO.ID, Term, sep = " - "))
+  #allRes <- mutate(allRes, plot_id = paste(GO.ID, Term, sep = " - "))
   
   mylabels <- paste (allRes$GO.ID, "-",  asd[allRes$GO.ID])
   mybreaks <- 10^-(0:30)
   
-  p <- ggplot(data=allRes, aes(x=reorder(plot_id, Significant), y = Significant)) +
+  p <- ggplot(data=allRes, aes(x=reorder(Term, Significant), y = Significant)) +
     geom_bar(stat="identity", color="black", aes(fill=as.numeric(log(classicFisher))), size = 0.3)+
     geom_text(aes(label=mylabels), position=position_fill(vjust=0), hjust=0, fontface="bold", size = 5) +
     coord_flip() + 
     theme(panel.background = element_blank(), panel.grid.major.x = element_line(colour = "darkgrey", size=0.75),
           panel.grid.minor.x = element_line(colour = "grey", size=0.75), axis.title.y=element_blank(), 
-          axis.text.y=element_blank(), axis.ticks.y=element_blank(), 
+          axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.text.x = element_text(angle = 45, hjust = 0),
           axis.ticks.x =element_blank(), axis.line.y=element_blank(), axis.text=element_text(size=12)) +
     ylab("Number of genes") +
     guides(fill = guide_colourbar(barheight = 25, reverse=T)) +
     scale_fill_gradientn(name = "p-value", colours = myPalette(4), breaks = log(mybreaks), 
                          guide = guide_colourbar(reverse = TRUE), labels = mybreaks) +
-    scale_y_continuous(breaks = seq(0, max(allRes$Significant), by = 10))
+    scale_y_continuous(breaks = seq(0, max(allRes$Significant), by = 20))
   print(p)
   
   print(allRes)
-  next
   
   # Save results
   if (exists("allRes") & nrow(allRes) > 4) {
     # Save table and figure 
     write.table(allRes, file = paste0(FOLDER, "/enrichment_", ONT, ".tsv"), quote = F, row.names = F, sep = "\t")
-    pdf(paste0(FOLDER, "/enrichment_", ONT, ".pdf"), width=16, height=8, paper='special',)
+    pdf(paste0(FOLDER, "/enrichment_", ONT, ".pdf"), width=16, height=8, paper='special')
+    png(paste0(FOLDER, "/enrichment_", ONT, ".png"), width = 900, height = 600)
     print(p)
     dev.off()
   }
@@ -110,6 +108,5 @@ for (ONT in c("BP")) {
                 file = paste(new_folder, x, "-", str_replace_all(names(significantGenes)[x], "/", "_"), ".tsv", sep=""),
                 col.names = F, row.names = F)
   }
-  print(allRes)
 }
 
