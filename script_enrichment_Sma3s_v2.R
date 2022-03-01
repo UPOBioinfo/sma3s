@@ -4,6 +4,7 @@
 library(topGO)
 library(ggplot2)
 library(RColorBrewer)
+library(stringr)
 
 # INPUT (###HERE)
 setwd("/home/alumno/Descargas")                    # working directory
