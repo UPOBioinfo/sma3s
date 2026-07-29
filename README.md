@@ -1,5 +1,7 @@
 # Sma3s (Sequence massive annotator using 3 modules)
-*Functional annotation for complete proteomes &amp; transcriptomes: http://www.bioinfocabd.upo.es/sma3s/*
+*Functional annotation for complete proteomes &amp; transcriptomes*
+
+(We are developing version 3, which is about to be released)
 
 Sma3s has low computing requirements and can be used on virtually any computer. It is written in Perl language and you need its interpreter (http://www.perl.com), which is preinstalled in Linux and Mac OS X (in Windows it will not be necessary). Additionally, you need to install the Blast+ package for your operating system.
 
@@ -34,5 +36,3 @@ To do that, you must download a .dat file from UniProt:
 And install the Blast Legacy package:
 - ftp://ftp.ncbi.nlm.nih.gov/blast/executables/legacy/
 
-## Sma3s Website (including a video-tutorial)
-http://www.bioinfocabd.upo.es/sma3s/
